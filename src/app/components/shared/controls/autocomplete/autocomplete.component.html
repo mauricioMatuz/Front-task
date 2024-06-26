@@ -1,0 +1,22 @@
+<div class="mb-3">
+  <input
+    type="text"
+    class="form-control"
+    [placeholder]="placeholder ||'Pick one'"
+    aria-label="Number"
+    matInput
+    [formControl]="formControl"
+    #search
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    @for (option of options$ | async; track option) {
+    <mat-option [value]="option.label">
+      <div
+          class="option__label"
+          [innerHtml]="option.label | highlight: search.value"
+        ></div>
+    </mat-option>
+    }
+  </mat-autocomplete>
+</div>

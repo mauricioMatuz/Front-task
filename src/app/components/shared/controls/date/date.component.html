@@ -1,0 +1,20 @@
+<div class="date">
+  <input
+    class="form-control"
+    type="text"
+    matInput
+    readonly
+    [matDatepicker]="picker"
+    (dateChange)="onChanged($event)"
+    (click)="picker.open()"
+    [attr.disabled]="isDisabled ? true : null"
+    [value]="inputValue"
+    [min]=min
+    [max]="max"
+    placeholder="{{ placeholder || 'Seleccione una fecha' }}"
+  >
+
+  <mat-datepicker-toggle matIconSuffix matSuffix [for]="picker" disabled="isDisabled">
+  </mat-datepicker-toggle>
+  <mat-datepicker #picker (closed)="onClosed()"></mat-datepicker>
+</div>

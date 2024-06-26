@@ -1,0 +1,9 @@
+<input
+  type="text"
+  [value]="value"
+  [placeholder]="placeHolder || ''"
+  [attr.disables]="isDisabled ? true : false"
+  [class]="customClasses"
+  (keyup)="onKeyUp($event)"
+  (blur)="onBlur()"
+/>

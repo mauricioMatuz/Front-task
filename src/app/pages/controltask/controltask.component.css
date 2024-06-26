@@ -1,0 +1,12 @@
+.test{
+  padding: 0 100rem 0 100rem;
+}
+.btn-lg,
+.btn-group-lg > .btn {
+  --bs-btn-padding-x: 1.5rem; /* Nuevo valor de padding horizontal para botones grandes */
+  font-size: 1.25rem; /* Tamaño de la fuente del botón */
+  padding-top: 0.75rem; /* Ajuste del padding superior */
+  padding-bottom: 0.75rem; /* Ajuste del padding inferior */
+  border-radius: 0.5rem; /* Redondeado del borde del botón */
+}
+

@@ -1,0 +1,20 @@
+<div class="form-check checkboxes">
+  @for (item of items ; track item.value) {
+  <label class="checkbox" [class.checkbox_disabled]="isDisabled">
+    {{ item.value}}
+    <input
+      class="form-check-input checkbox__input"
+      type="radio"
+      [value]="item.value"
+      [attr.disabled]="isDisabled ? true : null"
+      [checked]="isChecked(item.value)"
+      (change) = "onChange(item.value)"
+      id="flexCheckDefault"
+    />
+    <span class="checkbox__checkmark"></span>
+  </label>
+  }@empty{
+    <span>NADA</span>
+  }
+</div>
+

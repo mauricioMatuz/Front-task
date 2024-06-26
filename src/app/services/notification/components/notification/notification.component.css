@@ -1,0 +1,8 @@
+.mat-snackbar_error {
+  background: #b00020;
+  color: #fff;
+}
+.mat-snackbar_success {
+  background: #9a0;
+  color: #fff;
+}

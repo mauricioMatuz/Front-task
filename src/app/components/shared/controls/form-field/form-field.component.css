@@ -1,0 +1,35 @@
+.form-field {
+  padding-bottom: 8px;
+}
+.form-field__label {
+  display: flex;
+  margin: 0 0 6px 0;
+}
+.form-field__control {
+  display: block;
+  margin-bottom: 0;
+}
+.form-field__error {
+  opacity: 0;
+  font-size: 12px;
+  color: #c61a09;
+  padding: 1px 0;
+  min-height: 2px;
+  margin-top: 2px; /* Espacio pequeño entre el control y el mensaje de error */
+}
+.form-field span {
+  display: block;
+}
+.form-field_error .form-field__error {
+  opacity: 1;
+}
+.form-field_inline {
+  display: flex;
+}
+.form-field_inline > .form-field__label {
+  padding: 10px 12px 10px 0;
+  width: 30%;
+}
+.form-field_inline > .form-field__control {
+  width: 100%;
+}

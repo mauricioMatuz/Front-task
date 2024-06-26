@@ -1,0 +1,95 @@
+<h2>Actions</h2>
+<app-button (click)="onToggleSpinner()">Toggle Spinner</app-button>
+<app-button (click)="onError()">Error</app-button>
+<app-button (click)="onSuccess()">Success</app-button>
+<br /><br /><br />
+
+<div class="wrapper">
+  @if (showSpinner) {
+  <app-spinner></app-spinner>
+  }
+  <form
+    [formGroup]="formTest"
+    novalidate
+    autocomplete="off"
+    (ngSubmit)="onSubmit()"
+  >
+    <app-button (click)="orgonizarElemento()">Organizar</app-button>
+    <app-button (click)="onPatchValue()">Rellenar</app-button>
+    <app-button (click)="onToggleDisabled()">deshabilitar</app-button>
+    <app-form-field
+      [control]="formTest.controls['name']"
+      [isInline]="isInline"
+      [required]="true"
+      [patternError]="regexError.number"
+      label="Testeo"
+    >
+      <app-input formControlName="name" label="Hola"></app-input>
+      <br /><br />
+    </app-form-field>
+
+    <app-form-field
+      label="Password"
+      [required]="true"
+      [control]="formTest.controls['password']"
+      [isInline]="isInline"
+    >
+      <app-password formControlName="password"></app-password>
+    </app-form-field>
+    <app-form-field
+      label="Select"
+      [required]="true"
+      [control]="formTest.controls['select']"
+      [isInline]="isInline"
+    >
+      <app-select formControlName="select" [items]="items"></app-select>
+    </app-form-field>
+    <app-form-field
+      label="Checkboxes"
+      [required]="true"
+      [control]="formTest.controls['checkbox']"
+      [isInline]="isInline"
+    >
+      <app-checkbox formControlName="checkbox" [items]="items"></app-checkbox>
+    </app-form-field>
+    <app-form-field
+      label="Radios"
+      [required]="true"
+      [control]="formTest.controls['radio']"
+      [isInline]="isInline"
+    >
+      <app-radio formControlName="radio" [items]="items"></app-radio>
+    </app-form-field>
+    <app-form-field
+      label="Date"
+      [required]="true"
+      [control]="formTest.controls['date']"
+      [isInline]="isInline"
+    >
+      <app-date></app-date>
+    </app-form-field>
+    <app-form-field
+      label="Date"
+      [required]="true"
+      [control]="formTest.controls['date']"
+      [isInline]="isInline"
+    >
+      <app-date-range></app-date-range>
+    </app-form-field>
+    <app-form-field
+      label="AUTO"
+      [required]="true"
+      [control]="formTest.controls['date']"
+      [isInline]="isInline"
+    >
+      <app-autocomplete
+        formControlName="autocomplete"
+        [items]="items"
+        [placeholder]="'sisi'"
+      ></app-autocomplete>
+    </app-form-field>
+  </form>
+</div>
+
+<br><br><br><br><br>
+<app-card [title]="false" [action]="false" [subtitle]="false"></app-card>

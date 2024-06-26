@@ -1,0 +1,63 @@
+<div
+  class="form-field"
+  [class.form-field_error]="hasError()"
+  [class.form-field_inline]="isInline"
+>
+  <label class="form-field__label"
+    >{{ label }}
+    @if(required){
+    <span class="form-field__req">*</span>
+    }
+  </label>
+  <div class="form-field__control">
+    <ng-content></ng-content>
+    <div class="form-field__error">
+      @if(control && errorKey){
+      <ng-container>
+        @switch(errorKey){
+          @case('min'){
+            <span
+              >Minimo {{ control.errors ? control.errors[errorKey].min : 0 }} entro=</span
+            >
+          }
+          @case('max'){
+            <span
+              >Maximo
+              {{ control.errors ? control.errors[errorKey].max : 100000 }}</span
+            >
+          }
+        @case('required'){
+          <span>Esta caja de texto es obligatoria </span>
+        }
+        @case('requiredtrue'){
+          <span>Esta caja de texto es obligatoria:O</span>
+        }
+        @case('minlength'){
+          <span
+            >Cantidad de caracteres <strong>Minima</strong>
+            {{
+              control.errors ? control.errors[errorKey].requiredLength : 0
+            }}</span
+          >
+        }
+        @case('maxlength'){
+          <span
+            >Caracteres <strong>Maxima</strong>
+            {{
+              control.errors ? control.errors[errorKey].requiredLength : 0
+            }}</span
+          >
+        }
+        @case('pattern'){
+          @if(patternError){
+            <span>{{ patternError }}</span>
+          }@else {
+            <span>Expresion regular no coincide</span>
+          }
+        }
+        @default { <span>Error en switch</span>} }
+      </ng-container>
+      }
+    </div>
+  </div>
+</div>

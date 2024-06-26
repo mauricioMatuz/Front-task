@@ -1,0 +1,9 @@
+.date {
+  display: inline-flex;
+}
+:host-context(.form-field_error) input {
+  border: 1px solid #c61a09;
+}
+mat-form-field {
+  margin-right: 12px;
+}
