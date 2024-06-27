@@ -6,13 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  CardComponent,
   FormFieldComponent,
   InputComponent,
   PasswordComponent,
   regex,
   regexErrors,
-  ButtonComponent
+  ButtonComponent,
 } from '../../components';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Login } from '../../models/backend/Login';
@@ -31,7 +30,7 @@ import { Observable } from 'rxjs';
     RouterLink,
     RouterLinkActive,
     ButtonComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -41,14 +40,11 @@ export class LoginComponent implements OnInit {
   isInline: boolean = false;
   regexError = regexErrors;
   holderEmail: string = 'Ingrese su correo';
-  pokemonList$!: Observable<any>;
+
   constructor(private fb: FormBuilder, private login: LoginService) {}
 
   ngOnInit(): void {
     this.generateForm();
-    this.pokemonList$ = this.login.Pokemon()
-    console.log(this.pokemonList$," OMG");
-
   }
 
   private generateForm(): void {
@@ -76,9 +72,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formLogin.valid) {
-      const login: Login = this.formLogin.value;
-      console.log('LOGIN xd', login);
-      this.login.Login(login);
+      this.login.Login(this.formLogin.value).subscribe(
+        (response) => {
+          console.log(response, ' si');
+        },
+        (error) => {
+          console.log('NOP ', error);
+        }
+      );
     }
   }
 }

@@ -8,13 +8,12 @@ import { Login } from '../../models/backend/Login';
   providedIn: 'root',
 })
 export class LoginService {
-  private url =
-    'https://pokeapi.co/api/v2/https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0';
+  private url = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
   Login(login: Login): Observable<Login> {
     console.log('Esto lega en login ', login);
-    return this.http.post<Login>(`${this.url}/login`, login);
+    return this.http.post<Login>(`${this.url}/user/login`, login);
   }
 
   Pokemon() {
