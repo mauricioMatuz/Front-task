@@ -19,7 +19,6 @@ export interface JwtPayload {
 export class LoginService {
 
   private url = `http://localhost:3000`;
-  private url = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
   Login(login: Login): Observable<Login> {
