@@ -12,12 +12,14 @@ import {
   regex,
   regexErrors,
   ButtonComponent,
+  ButtonComponent,
 } from '../../components';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Login } from '../../models/backend/Login';
 import { LoginService } from '../../services/login/login.service';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { AlretsService } from '../../services/alert/alrets.service';
 
 @Component({
   selector: 'app-login',
@@ -39,9 +41,12 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   isInline: boolean = false;
   regexError = regexErrors;
-  holderEmail: string = 'Ingrese su correo';
-
-  constructor(private fb: FormBuilder, private login: LoginService) {}
+  constructor(
+    private fb: FormBuilder,
+    private login: LoginService,
+    private alert: AlretsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.generateForm();
@@ -74,10 +79,11 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.valid) {
       this.login.Login(this.formLogin.value).subscribe(
         (response) => {
-          console.log(response, ' si');
+          this.alert.MinShowSucces("Bienvenido","success","Administra tus tareas")
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
-          console.log('NOP ', error);
+          this.alert.ShowErrorAlert("Oh! ha ocurrido un error ")
         }
       );
     }
