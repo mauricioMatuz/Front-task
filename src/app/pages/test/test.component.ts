@@ -9,7 +9,12 @@ import {
 
 import { ButtonComponent } from '../../components/shared/buttons/button/button.component';
 import { InputComponent } from '../../components/shared/controls/input/input.component';
-import { CardComponent, FormFieldComponent, regex, regexErrors } from '../../components/shared';
+import {
+  CardComponent,
+  FormFieldComponent,
+  regex,
+  regexErrors,
+} from '../../components/shared';
 import { PasswordComponent } from '../../components/shared/controls/password/password.component';
 import { SelectComponent } from '../../components/shared/controls/select/select.component';
 import { ControlItem } from '../../components/shared/controls/select/select.component';
@@ -54,9 +59,9 @@ export class TestComponent implements OnInit {
   ) {
     this.isInline = true;
     this.items = [
-      { label: 'Test', value: 'valie1', icon: null },
-      { label: 'Test2', value: 'valie2', icon: null },
-      { label: 'Test3', value: 'valie3', icon: null },
+      { label: 'Test', value: 'valie1' },
+      { label: 'Test2', value: 'valie2' },
+      { label: 'Test3', value: 'valie3' },
     ];
   }
   ngOnInit(): void {

@@ -12,13 +12,14 @@ import {
   PasswordComponent,
   regex,
   regexErrors,
-  ButtonComponent
+  ButtonComponent,
 } from '../../components';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Login } from '../../models/backend/Login';
 import { LoginService } from '../../services/login/login.service';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { AlretsService } from '../../services/alert/alrets.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ import { Observable } from 'rxjs';
     RouterLink,
     RouterLinkActive,
     ButtonComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -40,15 +41,15 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   isInline: boolean = false;
   regexError = regexErrors;
-  holderEmail: string = 'Ingrese su correo';
-  pokemonList$!: Observable<any>;
-  constructor(private fb: FormBuilder, private login: LoginService) {}
+  constructor(
+    private fb: FormBuilder,
+    private login: LoginService,
+    private alert: AlretsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.generateForm();
-    this.pokemonList$ = this.login.Pokemon()
-    console.log(this.pokemonList$," OMG");
-
   }
 
   private generateForm(): void {
@@ -76,9 +77,15 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formLogin.valid) {
-      const login: Login = this.formLogin.value;
-      console.log('LOGIN xd', login);
-      this.login.Login(login);
+      this.login.Login(this.formLogin.value).subscribe(
+        (response) => {
+          this.alert.MinShowSucces("Bienvenido","success","Administra tus tareas")
+          this.router.navigate(['/dashboard']);
+        },
+        (error) => {
+          this.alert.ShowErrorAlert("Oh! ha ocurrido un error ")
+        }
+      );
     }
   }
 }

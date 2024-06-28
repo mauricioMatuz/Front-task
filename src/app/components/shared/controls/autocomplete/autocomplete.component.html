@@ -2,21 +2,27 @@
   <input
     type="text"
     class="form-control"
-    [placeholder]="placeholder ||'Pick one'"
+    [placeholder]="placeholder || 'Pick one'"
     aria-label="Number"
     matInput
     [formControl]="formControl"
     #search
     [matAutocomplete]="auto"
   />
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+  <mat-autocomplete
+    autoActiveFirstOption
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+  >
     @for (option of options$ | async; track option) {
-    <mat-option [value]="option.label">
+    <mat-option [value]="option">
       <div
-          class="option__label"
-          [innerHtml]="option.label | highlight: search.value"
-        ></div>
+        class="option__label"
+        [innerHTML]="option.label | highlight : search.value"
+      ></div>
     </mat-option>
+    }@empty {
+      <mat-option>No hay resultados</mat-option>
     }
   </mat-autocomplete>
 </div>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AutocompleteComponent,
   ButtonComponent,
   FormFieldComponent,
   InputComponent,
   NavbarComponent,
   PasswordComponent,
+  SpinnerComponent,
 } from '../../components';
 import {
   FormBuilder,
@@ -13,6 +15,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
+import { TaskService } from '../../services/task/task.service';
+import { AlretsService } from '../../services/alert/alrets.service';
 
 @Component({
   selector: 'app-controltask',
@@ -26,6 +31,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     RouterLink,
     RouterLinkActive,
     ButtonComponent,
+    AutocompleteComponent,
+    SpinnerComponent,
   ],
   templateUrl: './controltask.component.html',
   styleUrl: './controltask.component.css',
@@ -33,10 +40,28 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class ControltaskComponent implements OnInit {
   formCreate!: FormGroup;
   isInline: boolean = false;
-  constructor(private fb: FormBuilder) {}
+  showSpinner = true;
+  user: any[] = [];
+  constructor(private fb: FormBuilder, private userService: UserService,private taskService:TaskService,private alerts:AlretsService) {}
   ngOnInit(): void {
     this.generateForm();
+    this.loadUserList();
   }
+
+  private loadUserList() {
+    this.userService.LisUser().subscribe(
+      (response) => {
+        this.user = response.map((users: any) => ({
+          value: users.id.toString(),
+          label: users.name,
+        }));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   private generateForm(): void {
     this.formCreate = this.fb.group({
       titulo: [
@@ -53,6 +78,14 @@ export class ControltaskComponent implements OnInit {
           validators: [Validators.required],
         },
       ],
+      autocomplete: [null, [Validators.required]],
     });
+  }
+  submit() {
+    if(this.formCreate.valid){
+      this.taskService.CrateTask(this.formCreate.value)
+    } else {
+      this.alerts.MinShowSucces("No deje campos vacios","question")
+   }
   }
 }
