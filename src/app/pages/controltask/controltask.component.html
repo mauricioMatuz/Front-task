@@ -27,14 +27,14 @@
                         class="form-outline flex-fill mb-0"
                       >
                         <app-form-field
-                          [control]="formCreate.controls['titulo']"
+                          [control]="formCreate.controls['title']"
                           [isInline]="isInline"
                           [required]="true"
                           label="Agregue título de la tarea"
                         >
                           <app-input
                             [customClasses]="'form-control'"
-                            formControlName="titulo"
+                            formControlName="title"
                             placeHolder="Ingresa Nombre completo"
                           ></app-input>
                         </app-form-field>
@@ -48,14 +48,14 @@
                         class="form-outline flex-fill mb-0"
                       >
                         <app-form-field
-                          [control]="formCreate.controls['descripcion']"
+                          [control]="formCreate.controls['description']"
                           [isInline]="isInline"
                           [required]="true"
                           label="Ingrese descripción"
                         >
                           <app-input
                             [customClasses]="'form-control'"
-                            formControlName="descripcion"
+                            formControlName="description"
                             placeHolder="Ingresa descripcion"
                           ></app-input>
                         </app-form-field>
@@ -68,12 +68,12 @@
                         class="form-outline flex-fill mb-0"
                       >
                         <app-form-field
-                          [control]="formCreate.controls['date']"
+                          [control]="formCreate.controls['deadline']"
                           [isInline]="isInline"
                           [required]="true"
                           label="Ingrese fecha de entrega"
                         >
-                          <app-date formControlName="date"></app-date>
+                          <app-date formControlName="deadline"></app-date>
                         </app-form-field>
                       </div>
                     </div>
@@ -84,14 +84,14 @@
                         class="form-outline flex-fill mb-0"
                       >
                         <app-form-field
-                          [control]="formCreate.controls['autocomplete']"
+                          [control]="formCreate.controls['userId']"
                           [isInline]="isInline"
                           [required]="true"
                           label="Seleccione usuario"
                         >
                           @defer(when user.length>0) {
                           <app-autocomplete
-                            formControlName="autocomplete"
+                            formControlName="userId"
                             [items]="user"
                             displayField="name"
                             [placeholder]="'Selecciona encargado de la tarea'"

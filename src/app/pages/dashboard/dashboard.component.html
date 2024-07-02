@@ -1,27 +1,49 @@
-<app-navbar>
-  <section class="vh-100" style="background-color: #eee">
-        <div class="container py-5 h-100">
-          <div
-            class="row d-flex justify-content-center align-items-center h-100"
-          >
-            <div class="col col-lg-8 col-xl-6">
-              <div class="card rounded-3">
-                <div class="card-body p-4">
-                  <p class="mb-2">
-                    <span class="h2 me-2">Team Meeting</span>
-                    <span class="badge bg-danger">checklist</span>
+  <app-navbar>
+    <section class="vh-100" style="background-color: #eee">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          @for (task of tasks; track task) {
+          <div class="col col-lg-8 col-xl-6">
+            <div class="card rounded-3">
+              <div class="card-body p-4">
+                <p class="mb-2">
+                  <span class="h2 me-2">{{task.title}}</span>
+                  <span class="badge bg-danger">checklist</span>
+                </p>
+                <p class="text-muted pb-2">{{DateFormat(task.deadline)}} • ML - 1321</p>
+                <div class="divider d-flex align-items-center my-4">
+                  <p class="text-center mx-3 mb-0" style="color: #a2aab7">
+                    Shared with
                   </p>
-                  <p class="text-muted pb-2">04/01/2020 • ML - 1321</p>
-
-                  <div class="divider d-flex align-items-center my-4">
-                    <p class="text-center mx-3 mb-0" style="color: #a2aab7">
-                      Shared with
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
+          }@empty {
+          <section
+            class="py-3 py-md-5 min-vh-100 d-flex justify-content-center align-items-center"
+          >
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="text-center">
+                    <h2
+                      class="d-flex justify-content-center align-items-center gap-2 mb-4"
+                    >
+                      <span class="display-1 fw-bold">4</span>
+                      <i
+                        class="bi bi-exclamation-circle-fill text-danger display-4"
+                      ></i>
+                      <span class="display-1 fw-bold bsb-flip-h">4</span>
+                    </h2>
+                    <h3 class="h2 mb-2">No tienes tareas por realizar 😉!!</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          }
         </div>
-      </section>
-</app-navbar>
+      </div>
+    </section>
+  </app-navbar>

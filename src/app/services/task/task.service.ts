@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Task } from '../../models/backend/Task';
 import { Observable } from 'rxjs';
@@ -7,24 +7,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TaskService {
-  private headers: HttpHeaders;
   private url = `http://localhost:3000`;
 
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders();
-    this.checkToken();
-  }
-  private checkToken(): void {
-    const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local (o de donde lo hayas guardado)
-    if (token) {
-      this.setAuthorizationHeader(token);
-    }
-  }
-  private setAuthorizationHeader(token: string): void {
-    this.headers = this.headers.set('Authorization', `Bearer ${token}`);
-  }
+  constructor(private http: HttpClient) {}
 
   CrateTask(task: Task): Observable<any> {
+    console.log(task, ' esto va antes del post ', typeof task.userId);
     return this.http.post(`${this.url}/task`, task);
+  }
+
+  ListTask(): Observable<any> {
+    return this.http.get(`${this.url}/task`);
+  }
+
+  ListMyTask(): Observable<any> {
+    return this.http.get(`${this.url}/task/my/task`);
   }
 }
