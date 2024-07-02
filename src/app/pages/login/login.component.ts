@@ -12,6 +12,7 @@ import {
   regex,
   regexErrors,
   ButtonComponent,
+  ButtonComponent,
 } from '../../components';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Login } from '../../models/backend/Login';
