@@ -2,29 +2,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/backend/User';
 import { Observable } from 'rxjs';
+import { UserRegister } from '../../models/backend';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private headers: HttpHeaders;
+  // private headers: HttpHeaders;
   private url = `http://localhost:3000`;
 
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders();
-    this.checkToken();
-  }
-  private checkToken(): void {
-    const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local (o de donde lo hayas guardado)
-    if (token) {
-      this.setAuthorizationHeader(token);
-    }
-  }
-  private setAuthorizationHeader(token: string): void {
-    this.headers = this.headers.set('Authorization', `Bearer ${token}`);
-  }
+  constructor(private http: HttpClient) {}
 
   LisUser(): Observable<any> {
-    return this.http.get<User[]>(`${this.url}/user`, { headers: this.headers });
+    return this.http.get<User[]>(`${this.url}/user`);
+  }
+  ListRol(): Observable<any> {
+    return this.http.get(`${this.url}/rol`);
+  }
+  RegisterUser(user: UserRegister): Observable<any> {
+    return this.http.post(`${this.url}/user`, user);
   }
 }

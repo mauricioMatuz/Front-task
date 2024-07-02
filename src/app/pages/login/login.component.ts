@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  CardComponent,
   FormFieldComponent,
   InputComponent,
   PasswordComponent,
@@ -41,6 +40,7 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   isInline: boolean = false;
   regexError = regexErrors;
+  @ViewChild('loginButton', { static: false }) loginButton!: ElementRef;
   constructor(
     private fb: FormBuilder,
     private login: LoginService,
@@ -77,15 +77,21 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formLogin.valid) {
-      this.login.Login(this.formLogin.value).subscribe(
-        (response) => {
-          this.alert.MinShowSucces("Bienvenido","success","Administra tus tareas")
-          this.router.navigate(['/dashboard']);
-        },
-        (error) => {
-          this.alert.ShowErrorAlert("Oh! ha ocurrido un error ")
-        }
-      );
+      this.login.Login(this.formLogin.value).subscribe((response) => {
+        this.alert.MinShowSucces(
+          'Bienvenido',
+          'success',
+          'Administra tus tareas'
+        );
+        this.router.navigate(['/dashboard']);
+      });
+    } else {
+      this.alert.MinShowSucces('Error', 'error', 'Verifica los campos','center');
+    }
+  }
+  onKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.loginButton.nativeElement.click();
     }
   }
 }

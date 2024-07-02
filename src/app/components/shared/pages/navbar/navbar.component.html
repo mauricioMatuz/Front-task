@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid vh-100"  style="background-color: #eee">
   <div class="row flex-nowrap">
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
       <div
@@ -42,16 +42,27 @@
             </ul>
           </li>
           @if (taskcreate) {
-           <li>
-            <a
-              routerLink="/controltask"
-              routerLinkActive="active"
-              class="nav-link px-0 align-middle"
-            >
-              <i class="fs-4 bi-table"></i>
-              <span class="ms-1 d-none d-sm-inline">Tareas</span></a
-            >
-          </li>
+            <li>
+              <a
+                routerLink="/controltask"
+                routerLinkActive="active"
+                class="nav-link px-0 align-middle"
+              >
+                <i class="fs-4 bi-table"></i>
+                <span class="ms-1 d-none d-sm-inline">Tareas</span></a
+              >
+            </li>
+
+            <li>
+              <a
+                routerLink="/register"
+                routerLinkActive="active"
+                class="nav-link px-0 align-middle"
+              >
+                <i class="bi bi-plus-circle-fill"></i>
+                <span class="ms-1 d-none d-sm-inline">Registrar usuario</span></a
+              >
+            </li>
           }
         </ul>
         <hr />

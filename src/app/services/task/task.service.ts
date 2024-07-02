@@ -24,9 +24,7 @@ export class TaskService {
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
   }
 
-  CrateTask(task: Task):Observable<any>{
-      return this.http.post(`${this.url}/task`, task, {
-        headers: this.headers,
-      });
+  CrateTask(task: Task): Observable<any> {
+    return this.http.post(`${this.url}/task`, task);
   }
 }

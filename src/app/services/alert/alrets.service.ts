@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2';
+import Swal, {SweetAlertIcon, SweetAlertOptions, SweetAlertPosition} from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -25,13 +25,14 @@ export class AlretsService {
     });
   }
 
-  MinShowSucces(message: string, icon: SweetAlertIcon, title?: string) {
+  MinShowSucces(message: string, icon: SweetAlertIcon, title?: string,    positions?: SweetAlertPosition
+  ) {
     const options: SweetAlertOptions = {
       icon: icon,
       title: title || 'Success',
       text: message,
       toast: true,
-      position: 'top-end',
+      position: positions||'top-end',
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
