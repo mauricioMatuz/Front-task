@@ -14,10 +14,8 @@ import {
   ButtonComponent,
 } from '../../components';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Login } from '../../models/backend/Login';
 import { LoginService } from '../../services/login/login.service';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
 import { AlretsService } from '../../services/alert/alrets.service';
 
 @Component({

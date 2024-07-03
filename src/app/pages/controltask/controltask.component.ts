@@ -62,6 +62,9 @@ export class ControltaskComponent implements OnInit {
           value: users.id.toString(),
           label: users.name,
         }));
+        if (this.formCreate) {
+          this.formCreate.get('userId')?.setValue(null);
+        }
       },
       (error) => {
         console.log(error);
@@ -71,39 +74,33 @@ export class ControltaskComponent implements OnInit {
 
   private generateForm(): void {
     this.formCreate = this.fb.group({
-      titulo: [
+      title: [
         null,
         {
           updateOn: 'blur',
           validators: [Validators.required],
         },
       ],
-      descripcion: [
+      description: [
         null,
         {
           updateOn: 'blur',
           validators: [Validators.required],
         },
       ],
-      autocomplete: [null, [Validators.required]],
-      date: [null, { updateOn: 'change', validators: [Validators.required] }],
+      userId: [null, [Validators.required]],
+      deadline: [
+        null,
+        { updateOn: 'change', validators: [Validators.required] },
+      ],
     });
-     this.formCreate.get('date')?.valueChanges.subscribe((value) => {
-       if (value) {
-         const date = new Date(value);
-         console.log(date); // Muestra la fecha correspondiente en la consola
-       }
-     });
   }
+
   submit() {
-    console.log(this.formCreate.valid, this.formCreate.value);
     if (this.formCreate.valid) {
-      console.log('SI');
-      console.log(this.formCreate.value);
-       const formValue = {
-         ...this.formCreate.value,
-         date: new Date(this.formCreate.value.date),
-       };
+      const formValue = this.formCreate.value;
+      formValue.deadline = new Date(formValue.deadline).toISOString();
+      formValue.userId = parseInt(formValue.userId, 10);
       this.taskService.CrateTask(formValue).subscribe(
         (response: any) => {
           this.showSpinner = false;
@@ -114,9 +111,11 @@ export class ControltaskComponent implements OnInit {
             'center'
           );
           this.formCreate.reset();
+          this.user = [];
+          this.loadUserList();
         },
         (error) => {
-          console.log(error, ' que pedo');
+          console.log(error);
         }
       );
     } else {

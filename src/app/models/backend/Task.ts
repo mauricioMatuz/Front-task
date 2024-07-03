@@ -1,6 +1,6 @@
-export interface Task{
-    title: string;
-    description: string;
-    userId: number;
-    date:Date
+export interface Task {
+  title: string;
+  description: string;
+  userId: number;
+  deadline: Date;
 }
