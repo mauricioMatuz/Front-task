@@ -23,4 +23,8 @@ export class TaskService {
   ListMyTask(): Observable<any> {
     return this.http.get(`${this.url}/task/my/task`);
   }
+
+  FinishTask(formData: FormData): Observable<any> {
+    return this.http.post(`${this.url}/task`, formData);
+  }
 }
