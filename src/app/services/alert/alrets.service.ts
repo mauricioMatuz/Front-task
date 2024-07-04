@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Swal, {SweetAlertIcon, SweetAlertOptions, SweetAlertPosition} from 'sweetalert2';
+import Swal, {SweetAlertIcon, SweetAlertOptions, SweetAlertPosition, SweetAlertResult} from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -25,14 +25,18 @@ export class AlretsService {
     });
   }
 
-  MinShowSucces(message: string, icon: SweetAlertIcon, title?: string,    positions?: SweetAlertPosition
+  MinShowSucces(
+    message: string,
+    icon: SweetAlertIcon,
+    title?: string,
+    positions?: SweetAlertPosition
   ) {
     const options: SweetAlertOptions = {
       icon: icon,
       title: title || 'Success',
       text: message,
       toast: true,
-      position: positions||'top-end',
+      position: positions || 'top-end',
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
@@ -43,5 +47,22 @@ export class AlretsService {
     };
 
     Swal.fire(options);
+  }
+
+  showConfirmationAlert(
+    title: string,
+    text: string,
+    icon: SweetAlertIcon,
+    cancel: boolean
+  ): Promise<SweetAlertResult> {
+    return Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      showCancelButton: cancel,
+      confirmButtonText: 'Sí, finalizar',
+      cancelButtonText: 'No, cancelar',
+    });
+
   }
 }

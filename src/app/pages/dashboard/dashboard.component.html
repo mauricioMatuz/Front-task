@@ -2,6 +2,15 @@
   <section class="vh-100" style="background-color: #eee">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 mb-4 d-flex justify-content-center">
+          <button class="btn btn-info" (click)="toggleShowCompleted()">
+            {{
+              showCompleted
+                ? "Mostrar Todas las Tareas"
+                : "Mostrar Tareas Finalizadas"
+            }}
+          </button>
+        </div>
         @for (task of tasks; track task) {
         <div class="col col-lg-8 col-xl-6">
           <div class="card rounded-3">
@@ -9,7 +18,9 @@
               <p class="mb-2">
                 <span class="h2 me-2">{{ task.title }}</span>
                 @if (task.active) {
-                <span class="badge bg-danger">Por hacer</span>
+                <span class="badge bg-danger">Por realizar</span>
+                }@else {
+                <span class="badge bg-success">Finalizado</span>
                 }
               </p>
               <p class="text-muted pb-2">
@@ -17,15 +28,23 @@
               </p>
               <div class="divider d-flex align-items-center my-4">
                 <p class="text-center mx-3 mb-0" style="color: #a2aab7">
-                  Descripción
+                  Descripcion
                 </p>
               </div>
               <p>{{ task.description }}</p>
-              <input type="file" id="fileInput" name="images" class="cargador" hidden (change)="selectFile($event)" accept=".pdf">
-               <app-button
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                hidden
+                accept=".pdf"
+                (change)="onFileSelected($event, task.id, task.title)"
+                #fileInput
+              />
+              <app-button
                 type="submit"
                 [customClasses]="'btn btn-primary btn-lg'"
-                (click)="triggerFileInput()"
+                (click)="openFileInput(fileInput)"
                 #loginButton
               >
                 Finalizar

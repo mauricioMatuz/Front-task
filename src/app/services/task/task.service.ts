@@ -12,12 +12,12 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   CrateTask(task: Task): Observable<any> {
-    console.log(task, ' esto va antes del post ', typeof task.userId);
     return this.http.post(`${this.url}/task`, task);
   }
 
-  ListTask(): Observable<any> {
-    return this.http.get(`${this.url}/task`);
+  ListTask(active:boolean): Observable<any> {
+    console.log(active," jsjsjs");
+    return this.http.get(`${this.url}/task/${active}`);
   }
 
   ListMyTask(): Observable<any> {
@@ -25,6 +25,6 @@ export class TaskService {
   }
 
   FinishTask(formData: FormData): Observable<any> {
-    return this.http.post(`${this.url}/task`, formData);
+    return this.http.post(`${this.url}/items`, formData);
   }
 }

@@ -36,7 +36,6 @@ export class LoginService {
         return null;
       })
     );
-    return this.http.post<Login>(`${this.url}/user/login`, login);
   }
 
   Pokemon() {
