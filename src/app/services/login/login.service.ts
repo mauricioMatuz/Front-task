@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { Login } from '../../models/backend/Login';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 export interface JwtPayload {
   sub: number;
   name: string;
@@ -17,9 +18,8 @@ export interface JwtPayload {
   providedIn: 'root',
 })
 export class LoginService {
-
   private url = `http://localhost:3000`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   Login(login: Login): Observable<Login> {
     console.log('Esto lega en login ', login);
@@ -38,7 +38,9 @@ export class LoginService {
     );
   }
 
-  Pokemon() {
-    return this.http.get(`${this.url}`);
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+    this.router.navigate(['/']);
   }
 }

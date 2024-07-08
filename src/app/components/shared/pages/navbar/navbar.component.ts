@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import jwtDecode from 'jwt-decode'; // Import the correct function
 import { UserService } from '../../../../services/user/user.service';
 import { User } from '../../../../models/backend/User';
+import { LoginService } from '../../../../services/login/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ import { User } from '../../../../models/backend/User';
 export class NavbarComponent implements OnInit {
   taskcreate!: boolean;
  
-  constructor(private userService: UserService) {}
+  constructor(private loginService:LoginService) {}
   ngOnInit(): void {
     this.isAdmin();
   }
@@ -25,5 +26,7 @@ export class NavbarComponent implements OnInit {
     if (rol?.toLowerCase() !== 'admin') this.taskcreate = false;
     else this.taskcreate = true;
   }
-  
+  singOut() {
+    this.loginService.logout();
+  }
 }

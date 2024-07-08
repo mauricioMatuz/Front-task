@@ -17,7 +17,7 @@ export class TaskService {
 
   ListTask(active:boolean): Observable<any> {
     console.log(active," jsjsjs");
-    return this.http.get(`${this.url}/task/${active}`);
+    return this.http.get(`${this.url}/task`);
   }
 
   ListMyTask(): Observable<any> {
@@ -26,5 +26,15 @@ export class TaskService {
 
   FinishTask(formData: FormData): Observable<any> {
     return this.http.post(`${this.url}/items`, formData);
+  }
+  Task(id: string): Observable<any> {
+    return this.http.get(`${this.url}/task/${id}`);
+  }
+
+  Edit(id: string, task: Task): Observable<any> {
+    return this.http.put(`${this.url}/task/${id}`, task);
+  }
+  Delete(id: string): Observable<any> {
+    return this.http.delete(`${this.url}/task/${id}`);
   }
 }

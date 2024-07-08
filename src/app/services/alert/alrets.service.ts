@@ -53,15 +53,17 @@ export class AlretsService {
     title: string,
     text: string,
     icon: SweetAlertIcon,
-    cancel: boolean
+    cancel: boolean,
+    buttonConfirm?: string,
+    buttonCancel?:string
   ): Promise<SweetAlertResult> {
     return Swal.fire({
       title: title,
       text: text,
       icon: icon,
       showCancelButton: cancel,
-      confirmButtonText: 'Sí, finalizar',
-      cancelButtonText: 'No, cancelar',
+      confirmButtonText: buttonConfirm ||'Sí, finalizar',
+      cancelButtonText: buttonCancel||'No, cancelar',
     });
 
   }

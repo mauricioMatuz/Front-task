@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit {
 
   registrar(): void {
     if (this.formRegister.valid) {
-      console.log('SI');
+      // console.log('SI');
       this.userService
         .RegisterUser(this.formRegister.value)
         .subscribe((respose: any) => {

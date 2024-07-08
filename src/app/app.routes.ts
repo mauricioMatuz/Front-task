@@ -7,13 +7,27 @@ import {ControltaskComponent} from './pages/controltask/controltask.component';
 import {TokenGuard} from "./guards/token.guard";
 
 export const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'register', component: RegisterComponent, canActivate: [TokenGuard]},
-  {path: 'test', component: TestComponent},
+  { path: '', component: LoginComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [TokenGuard] },
+  { path: 'test', component: TestComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [TokenGuard]
+    canActivate: [TokenGuard],
   },
-  {path: 'controltask', component: ControltaskComponent, canActivate: [TokenGuard]},
+  {
+    path: 'controltask/',
+    component: ControltaskComponent,
+    canActivate: [TokenGuard],
+  },
+  {
+    path: 'controltask',
+    component: ControltaskComponent,
+    canActivate: [TokenGuard],
+  },
+  {
+    path: 'controltask/:encryptedId',
+    component: ControltaskComponent,
+    canActivate: [TokenGuard],
+  },
 ];

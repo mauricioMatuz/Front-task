@@ -7,6 +7,9 @@ import {
 import { ControltaskComponent } from '../controltask/controltask.component';
 import { TaskService } from '../../services/task/task.service';
 import { AlretsService } from '../../services/alert/alrets.service';
+import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment.development'
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,8 +30,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private alertService: AlretsService
-  ) {}
+    private alertService: AlretsService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.ListTask();
@@ -42,7 +46,7 @@ export class DashboardComponent implements OnInit {
     console.log('Fetching tasks with showCompleted:', this.showCompleted);
     this.taskService.ListTask(this.showCompleted).subscribe(
       (response) => {
-        console.log(response," a ver q p2");
+        console.log(response, ' a ver q p2');
         this.tasks = response;
       },
       (error) => {
@@ -121,5 +125,49 @@ export class DashboardComponent implements OnInit {
   toggleShowCompleted(): void {
     this.showCompleted = !this.showCompleted;
     this.ListTask();
+  }
+
+  editTask(id: string) {
+    if (!id && !environment.secret) {
+      console.error('Invalid ID or encryption key');
+      return;
+    }
+    const secret = environment.secret;
+    const encryptedId = CryptoJS.AES.encrypt(`${id}`, `${secret}`).toString();
+    console.log('Encrypted ID to navigate:', encryptedId);
+    this.router.navigate(['/controltask', encryptedId]);
+  }
+  deleteTask(id: string) {
+    if (!id) {
+      console.error('Invalid ID');
+      return;
+    }
+    this.alertService
+      .showConfirmationAlert(
+        '¿Está seguro de querer eliminar la tarea?',
+        'Esta acción no se puede deshacer',
+        'warning',
+        true,
+        'Eliminar',
+        'Cancelar, la eliminación'
+      )
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.taskService.Delete(id).subscribe((response) => {
+            this.alertService.MinShowSucces(
+              'Eiminado!',
+              'success',
+              'Tarea eliminada',
+              'center'
+            );
+          });
+          this.ListTask();
+        }
+      });
+  }
+
+  isAdmin(): boolean {
+    const role = localStorage.getItem('rol');
+    return role === 'admin';
   }
 }
